@@ -1,77 +1,58 @@
 import React from "react";
-import { useState } from 'react';
+import { useState } from "react";
 
-import NewTaskForm from "../NewTaskForm/NewTaskForm"
-import Footer from "../Footer/Footer"
-import TaskList from "../TaskList/TaskList"
-import TasksFilter from "../TasksFilter/TasksFilter"
+import NewTaskForm from "../NewTaskForm/NewTaskForm";
+import Footer from "../Footer/Footer";
+import TaskList from "../TaskList/TaskList";
 
+import { format, formatDistance, formatRelative, subDays } from "date-fns";
 
-
+console.log(
+  formatDistance(subDays(new Date(), 3), new Date(), { addSuffix: true })
+);
+//=> "3 days ago"
 
 const App = () => {
+  function creatTodoList(title, status = "view") {
+    let randNum = Math.floor(Math.random() * 1000);
+    return {
+      id: randNum,
+      title: title,
+      status: status,
+      stateList: false,
+      dateTime: "test",
+    };
+  }
 
-    function creatTodoList (title, status = 'view') {
-        let randNum = Math.floor( Math.random()*1000)
-        return ({
-            id: randNum,
-            title: title,
-            status: status,
-        })
-     }
+  const [totdoList, setTodoList] = useState([
+    creatTodoList("1"),
+    creatTodoList("2"),
+    creatTodoList("3"),
+    creatTodoList("4"),
+    creatTodoList("5"),
+    creatTodoList("6"),
+  ]);
 
-    function editListItem(elem, changeText = false) {
-        const idx = totdoList.findIndex((element) =>{
-            return element.id ===  elem.id
-        })
-        const result = {
-            id: elem.id, 
-            title: !changeText ? elem.title : changeText, 
-            status: elem.status === 'view'? 'editing': 'view'
-        }
-        setTodoList([
-            ...totdoList.slice(0, idx),
-            result,
-            ...totdoList.slice(idx+1)
-        ])
-     }
+  const [filter, setFilter] = useState({ status: "all" });
 
-     function delListItem(elem){
-        const idx = totdoList.findIndex((element) =>{
-            return element.id ===  elem.id
-        })
+  return (
+    <section className="todoapp">
+      <NewTaskForm
+        totdoList={totdoList}
+        setTodoList={setTodoList}
+        creatTodoList={creatTodoList}
+      />
 
-        setTodoList([
-            ...totdoList.slice(0, idx),
-            ...totdoList.slice(idx+1)
-        ])
-     }
-     
-     const [totdoList, setTodoList] = useState([
-        creatTodoList ('1', 'editing'),
-        creatTodoList ('2'),
-        creatTodoList ('3'),
-        creatTodoList ('4'),
-        creatTodoList ('5'),
-        creatTodoList ('6'),
-     ])
+      <section className="main">
+        <TaskList
+          totdoList={totdoList}
+          setTodoList={setTodoList}
+          filter={filter}
+        />
+      </section>
+      <Footer totdoList={totdoList} setFilter={setFilter} />
+    </section>
+  );
+};
 
-    return (
-        <section className="todoapp">
-            <NewTaskForm 
-            totdoList = {totdoList}
-            setTodoList = {setTodoList}
-            creatTodoList = {creatTodoList}/>
-
-            <section className="main">
-            <TaskList 
-            totdoList = {totdoList}
-            setTodoList = {setTodoList}
-            editListItem = {editListItem}
-            delListItem = {delListItem}/>
-            </section>
-        </section>
-    )
-}
-
-export default App
+export default App;

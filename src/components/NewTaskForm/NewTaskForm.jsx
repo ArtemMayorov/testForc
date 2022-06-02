@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function NewTaskForm({totdoList, setTodoList, creatTodoList,delListItem}){
+export default function NewTaskForm({totdoList, setTodoList, creatTodoList}){
     function addTask (e) {
         if (e.key === 'Enter') {
             setTodoList([...totdoList, creatTodoList (e.target.value)])
