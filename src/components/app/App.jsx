@@ -5,14 +5,7 @@ import NewTaskForm from "../NewTaskForm/NewTaskForm";
 import Footer from "../Footer/Footer";
 import TaskList from "../TaskList/TaskList";
 
-import { format, formatDistance, formatRelative, subDays } from "date-fns";
-
-console.log(
-  formatDistance(subDays(new Date(), 3), new Date(), { addSuffix: true })
-);
-//=> "3 days ago"
-
-const App = () => {
+export default function App() {
   function creatTodoList(title, status = "view") {
     let randNum = Math.floor(Math.random() * 1000);
     return {
@@ -20,7 +13,6 @@ const App = () => {
       title: title,
       status: status,
       stateList: false,
-      dateTime: "test",
     };
   }
 
@@ -53,6 +45,4 @@ const App = () => {
       <Footer totdoList={totdoList} setFilter={setFilter} />
     </section>
   );
-};
-
-export default App;
+}

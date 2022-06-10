@@ -31,9 +31,7 @@ export default function Task({ elementTotdoList, editListItem, delListItem }) {
         ></input>
         <label>
           <span className="description">{elementTotdoList.title}</span>
-          <span className="created">
-            created {elementTotdoList.dateTime} seconds ago
-          </span>
+          <span className="created">created 5 seconds ago</span>
         </label>
         <button className="icon icon-edit" onClick={editTaskBtn}></button>
         <button className="icon icon-destroy" onClick={delItem}></button>

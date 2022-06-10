@@ -10,7 +10,6 @@ export default function TaskList({ totdoList, setTodoList, filter }) {
     let result = {};
     switch (statusList) {
       case "completed":
-        console.log(elem);
         result = {
           ...elem,
           status: !elem.stateList ? "completed" : "view",
@@ -55,8 +54,19 @@ export default function TaskList({ totdoList, setTodoList, filter }) {
 
   return (
     <ul className="todo-list">
-      {totdoList.map((elem) => {
-        if (filter.status === "all") {
+      {totdoList
+        .filter((elem) => {
+          if (filter.status === "all") {
+            return elem;
+          }
+          if (!elem.stateList && filter.status === "active") {
+            return elem;
+          }
+          if (elem.stateList && filter.status === "completed") {
+            return elem;
+          }
+        })
+        .map((elem) => {
           return (
             <Task
               key={elem.id}
@@ -66,41 +76,7 @@ export default function TaskList({ totdoList, setTodoList, filter }) {
               delListItem={delListItem}
             />
           );
-        }
-        if (!elem.stateList && filter.status === "active") {
-          return (
-            <Task
-              key={elem.id}
-              totdoList={totdoList}
-              elementTotdoList={elem}
-              editListItem={editListItem}
-              delListItem={delListItem}
-            />
-          );
-        }
-        if (elem.stateList && filter.status === "completed") {
-          return (
-            <Task
-              key={elem.id}
-              totdoList={totdoList}
-              elementTotdoList={elem}
-              editListItem={editListItem}
-              delListItem={delListItem}
-            />
-          );
-        }
-      })}
-      {/* {totdoList.map((elem) => {
-        return (
-          <Task
-            key={elem.id}
-            totdoList={totdoList}
-            elementTotdoList={elem}
-            editListItem={editListItem}
-            delListItem={delListItem}
-          />
-        );
-      })} */}
+        })}
     </ul>
   );
 }
