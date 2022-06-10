@@ -1,33 +1,34 @@
-import React from "react";
-import Task from "../Task/Task";
+import React from 'react';
+
+import Task from '../Task/Task';
 
 export default function TaskList({ totdoList, setTodoList, filter }) {
   /* Меняем/Редактируем/Делаем задачу выполненной в поле Task */
-  function editListItem(elem, changeText = false, statusList = "view") {
+  function editListItem(elem, changeText = false, statusList = 'view') {
     const idx = totdoList.findIndex((element) => {
       return element.id === elem.id;
     });
     let result = {};
     switch (statusList) {
-      case "completed":
+      case 'completed':
         result = {
           ...elem,
-          status: !elem.stateList ? "completed" : "view",
+          status: !elem.stateList ? 'completed' : 'view',
           stateList: !elem.stateList ? true : false,
         };
         break;
-      case "view":
+      case 'view':
         result = {
           ...elem,
-          status: "editing",
+          status: 'editing',
           stateList: !elem.stateList ? false : true,
         };
         break;
-      case "editing":
+      case 'editing':
         result = {
           ...elem,
           title: changeText.target.value,
-          status: !elem.stateList ? "view" : "completed",
+          status: !elem.stateList ? 'view' : 'completed',
           stateList: elem.stateList ? true : false,
         };
         break;
@@ -36,11 +37,7 @@ export default function TaskList({ totdoList, setTodoList, filter }) {
         break;
     }
 
-    setTodoList([
-      ...totdoList.slice(0, idx),
-      result,
-      ...totdoList.slice(idx + 1),
-    ]);
+    setTodoList([...totdoList.slice(0, idx), result, ...totdoList.slice(idx + 1)]);
   }
 
   /* Удаляем поле в Task*/
@@ -56,13 +53,13 @@ export default function TaskList({ totdoList, setTodoList, filter }) {
     <ul className="todo-list">
       {totdoList
         .filter((elem) => {
-          if (filter.status === "all") {
+          if (filter.status === 'all') {
             return elem;
           }
-          if (!elem.stateList && filter.status === "active") {
+          if (!elem.stateList && filter.status === 'active') {
             return elem;
           }
-          if (elem.stateList && filter.status === "completed") {
+          if (elem.stateList && filter.status === 'completed') {
             return elem;
           }
         })

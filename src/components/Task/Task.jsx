@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 export default function Task({ elementTotdoList, editListItem, delListItem }) {
   const [taskText, setTask] = useState(elementTotdoList.title);
@@ -7,8 +7,8 @@ export default function Task({ elementTotdoList, editListItem, delListItem }) {
   }
 
   function editTaskDone(e) {
-    if (e.key === "Enter") {
-      editListItem(elementTotdoList, e, "editing");
+    if (e.key === 'Enter') {
+      editListItem(elementTotdoList, e, 'editing');
     }
   }
 
@@ -17,18 +17,13 @@ export default function Task({ elementTotdoList, editListItem, delListItem }) {
   }
 
   function taskDone(e) {
-    editListItem(elementTotdoList, e, "completed");
+    editListItem(elementTotdoList, e, 'completed');
   }
 
   return (
     <li key={elementTotdoList.id} className={elementTotdoList.status}>
       <div className="view">
-        <input
-          className="toggle"
-          type="checkbox"
-          onChange={taskDone}
-          checked={elementTotdoList.stateList}
-        ></input>
+        <input className="toggle" type="checkbox" onChange={taskDone} checked={elementTotdoList.stateList}></input>
         <label>
           <span className="description">{elementTotdoList.title}</span>
           <span className="created">created 5 seconds ago</span>
@@ -37,7 +32,7 @@ export default function Task({ elementTotdoList, editListItem, delListItem }) {
         <button className="icon icon-destroy" onClick={delItem}></button>
       </div>
 
-      {elementTotdoList.status === "editing" ? (
+      {elementTotdoList.status === 'editing' ? (
         <input
           type="text"
           onChange={(e) => {
@@ -49,7 +44,7 @@ export default function Task({ elementTotdoList, editListItem, delListItem }) {
           autoFocus
         ></input>
       ) : (
-        ""
+        ''
       )}
     </li>
   );
