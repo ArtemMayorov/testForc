@@ -1,51 +1,59 @@
 import React, { useState } from 'react';
 
-export default function Task({ elementTotdoList, editListItem, delListItem }) {
-  const [taskText, setTask] = useState(elementTotdoList.title);
-  function editTaskBtn(e) {
-    editListItem(elementTotdoList, e);
+export default function Task({ elementTask, editTask, deleteTask }) {
+  const [taskText, setTask] = useState(elementTask.title);
+  const [editText, setEditText] = useState(false);
+
+  // статус редактирование началось
+  function editTaskBtn() {
+    setEditText(true);
   }
 
-  function editTaskDone(e) {
+  // статус редактирование завершено
+  function hundleEditTaskDone(e) {
     if (e.key === 'Enter') {
-      editListItem(elementTotdoList, e, 'editing');
+      editTask(elementTask, taskText, editText);
+      setEditText(false);
     }
   }
 
-  function delItem() {
-    delListItem(elementTotdoList);
+  // статус удалено
+  function hundleDelItem() {
+    deleteTask(elementTask);
   }
 
-  function taskDone(e) {
-    editListItem(elementTotdoList, e, 'completed');
+  // статус выполнено
+  function hundleTaskDone() {
+    editTask(elementTask);
   }
+
+  const textEdited = editText ? (
+    <input
+      type="text"
+      onChange={(e) => {
+        setTask(e.target.value);
+      }}
+      onKeyUp={hundleEditTaskDone}
+      value={taskText}
+      className="edit"
+      autoFocus
+    ></input>
+  ) : null;
+
+  const stateElement = editText ? 'editing' : elementTask.done ? 'completed' : 'view';
 
   return (
-    <li key={elementTotdoList.id} className={elementTotdoList.status}>
+    <li key={elementTask.id} className={stateElement}>
       <div className="view">
-        <input className="toggle" type="checkbox" onChange={taskDone} checked={elementTotdoList.stateList}></input>
+        <input className="toggle" type="checkbox" onChange={hundleTaskDone} checked={elementTask.done}></input>
         <label>
-          <span className="description">{elementTotdoList.title}</span>
+          <span className="description">{elementTask.title}</span>
           <span className="created">created 5 seconds ago</span>
         </label>
         <button className="icon icon-edit" onClick={editTaskBtn}></button>
-        <button className="icon icon-destroy" onClick={delItem}></button>
+        <button className="icon icon-destroy" onClick={hundleDelItem}></button>
       </div>
-
-      {elementTotdoList.status === 'editing' ? (
-        <input
-          type="text"
-          onChange={(e) => {
-            setTask(e.target.value);
-          }}
-          onKeyUp={editTaskDone}
-          value={taskText}
-          className="edit"
-          autoFocus
-        ></input>
-      ) : (
-        ''
-      )}
+      {textEdited}
     </li>
   );
 }

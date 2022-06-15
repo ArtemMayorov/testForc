@@ -1,26 +1,22 @@
 import React from 'react';
 
-export default function TasksFilter({ setFilter }) {
-  function clickFilter(e) {
-    const filterChildren = [...e.currentTarget.children];
-    filterChildren.map((el) => {
-      return (el.firstElementChild.className = '');
-    });
-    e.target.classList.add('selected');
-  }
-
+export default function TasksFilter({ filter, setFilter }) {
   return (
-    <ul onClick={clickFilter} className="filters">
+    <ul className="filters">
       <li>
-        <button onClick={() => setFilter({ status: 'all' })} className="selected">
+        <button onClick={() => setFilter('all')} className={filter === 'all' ? 'selected' : ''}>
           All
         </button>
       </li>
       <li>
-        <button onClick={() => setFilter({ status: 'active' })}>Active</button>
+        <button onClick={() => setFilter('active')} className={filter === 'active' ? 'selected' : ''}>
+          Active
+        </button>
       </li>
       <li>
-        <button onClick={() => setFilter({ status: 'completed' })}>Completed</button>
+        <button onClick={() => setFilter('completed')} className={filter === 'completed' ? 'selected' : ''}>
+          Completed
+        </button>
       </li>
     </ul>
   );

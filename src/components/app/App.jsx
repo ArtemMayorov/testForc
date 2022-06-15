@@ -5,35 +5,35 @@ import Footer from '../Footer/Footer';
 import TaskList from '../TaskList/TaskList';
 
 export default function App() {
-  function creatTodoList(title, status = 'view') {
-    let randNum = Math.floor(Math.random() * 1000);
-    return {
-      id: randNum,
-      title: title,
-      status: status,
-      stateList: false,
-    };
+  function creatTask(title) {
+    if (title.trim().length) {
+      let id = Math.floor(Math.random() * 1000);
+      return {
+        id: id,
+        title: title,
+        done: false,
+      };
+    }
+    return null;
   }
 
-  const [totdoList, setTodoList] = useState([
-    creatTodoList('1'),
-    creatTodoList('2'),
-    creatTodoList('3'),
-    creatTodoList('4'),
-    creatTodoList('5'),
-    creatTodoList('6'),
+  const [taskList, setTaskList] = useState([
+    creatTask('1'),
+    creatTask('2'),
+    creatTask('3'),
+    creatTask('4'),
+    creatTask('5'),
   ]);
 
-  const [filter, setFilter] = useState({ status: 'all' });
+  const [filter, setFilter] = useState('all');
 
   return (
     <section className="todoapp">
-      <NewTaskForm totdoList={totdoList} setTodoList={setTodoList} creatTodoList={creatTodoList} />
-
+      <NewTaskForm taskList={taskList} setTaskList={setTaskList} creatTask={creatTask} />
       <section className="main">
-        <TaskList totdoList={totdoList} setTodoList={setTodoList} filter={filter} />
+        <TaskList taskList={taskList} setTaskList={setTaskList} filter={filter} />
       </section>
-      <Footer totdoList={totdoList} setFilter={setFilter} />
+      <Footer taskList={taskList} setTaskList={setTaskList} filter={filter} setFilter={setFilter} />
     </section>
   );
 }
