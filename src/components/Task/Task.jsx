@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import { React, useState } from 'react';
+import { formatDistanceToNow } from 'date-fns';
 
-export default function Task({ elementTask, editTask, deleteTask }) {
+import Timer from '../Timer/Timer';
+import './Task.css';
+
+export default function Task({ elementTask, editTask, deleteTask, updateTimer }) {
   const [taskText, setTask] = useState(elementTask.title);
   const [editText, setEditText] = useState(false);
 
-  // статус редактирование началось
   function editTaskBtn() {
     setEditText(true);
   }
 
-  // статус редактирование завершено
   function hundleEditTaskDone(e) {
     if (e.key === 'Enter') {
       editTask(elementTask, taskText, editText);
@@ -17,12 +19,10 @@ export default function Task({ elementTask, editTask, deleteTask }) {
     }
   }
 
-  // статус удалено
   function hundleDelItem() {
     deleteTask(elementTask);
   }
 
-  // статус выполнено
   function hundleTaskDone() {
     editTask(elementTask);
   }
@@ -46,9 +46,12 @@ export default function Task({ elementTask, editTask, deleteTask }) {
     <li key={elementTask.id} className={stateElement}>
       <div className="view">
         <input className="toggle" type="checkbox" onChange={hundleTaskDone} checked={elementTask.done}></input>
-        <label>
-          <span className="description">{elementTask.title}</span>
-          <span className="created">created 5 seconds ago</span>
+        <label className="task">
+          <span className="title">{elementTask.title}</span>
+          <Timer elementTaskId={elementTask.id} elementTaskTime={elementTask.time} updateTimer={updateTimer}></Timer>
+          <span className="description">
+            Created {formatDistanceToNow(elementTask.creatDate, { includeSeconds: true, addSuffix: true })}
+          </span>
         </label>
         <button className="icon icon-edit" onClick={editTaskBtn}></button>
         <button className="icon icon-destroy" onClick={hundleDelItem}></button>

@@ -5,13 +5,16 @@ import Footer from '../Footer/Footer';
 import TaskList from '../TaskList/TaskList';
 
 export default function App() {
-  function creatTask(title) {
+  function creatTask(title, time = 10000) {
     if (title.trim().length) {
-      let id = Math.floor(Math.random() * 1000);
+      const id = Math.floor(Math.random() * 1000);
+      const creatDate = new Date();
       return {
         id: id,
-        title: title,
+        title,
         done: false,
+        time,
+        creatDate,
       };
     }
     return null;
@@ -25,13 +28,20 @@ export default function App() {
     creatTask('5'),
   ]);
 
+  const updateTimer = (elementId, time) => {
+    setTaskList((tasks) => {
+      const idx = taskList.findIndex((task) => task.id === elementId);
+      return [...tasks.slice(0, idx), { ...tasks[idx], time }, ...tasks.slice(idx + 1)];
+    });
+  };
+
   const [filter, setFilter] = useState('all');
 
   return (
     <section className="todoapp">
       <NewTaskForm taskList={taskList} setTaskList={setTaskList} creatTask={creatTask} />
       <section className="main">
-        <TaskList taskList={taskList} setTaskList={setTaskList} filter={filter} />
+        <TaskList taskList={taskList} setTaskList={setTaskList} filter={filter} updateTimer={updateTimer} />
       </section>
       <Footer taskList={taskList} setTaskList={setTaskList} filter={filter} setFilter={setFilter} />
     </section>

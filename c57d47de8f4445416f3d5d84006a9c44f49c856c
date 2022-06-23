@@ -1,0 +1,35 @@
+[33mcommit c57d47de8f4445416f3d5d84006a9c44f49c856c[m[33m ([m[1;36mHEAD -> [m[1;32mtodo-timer[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Dmitriy Gavrilin <lxlxlxllist@gmail.com>
+Date:   Wed Jun 15 22:01:35 2022 +0300
+
+    edits
+
+[33mcommit 2b107d3a7456be09ff5581331594cfa9eff19459[m
+Author: Dmitriy Gavrilin <lxlxlxllist@gmail.com>
+Date:   Fri Jun 10 19:04:57 2022 +0300
+
+    fix
+
+[33mcommit b8fd3c0dd7bb50f6fe3e2fab0a35cbd1b6adec24[m
+Author: Dmitriy Gavrilin <lxlxlxllist@gmail.com>
+Date:   Fri Jun 10 18:10:29 2022 +0300
+
+    переделал таски через фильтер
+
+[33mcommit 5f29b4e79e0200c4ee0a62ec11ff682e3ef2ceb6[m
+Author: Dmitriy Gavrilin <lxlxlxllist@gmail.com>
+Date:   Fri Jun 3 00:29:52 2022 +0300
+
+    Сделат отработку даты/ Сделано сортировка Тасков и их корректное редактирование
+
+[33mcommit 00ebcbb685572326649e0fcb579c9982b678f8cf[m
+Author: Dmitriy Gavrilin <lxlxlxllist@gmail.com>
+Date:   Wed Jun 1 23:21:12 2022 +0300
+
+    На этапе долать выполненые задачи P.S Уточнить как лучше заменять обьекты
+
+[33mcommit 5b8ffd546c769b48321b4102a3d0dc10e50e148e[m
+Author: Dmitriy Gavrilin <lxlxlxllist@gmail.com>
+Date:   Mon May 30 18:27:53 2022 +0300
+
+    Initialize project using Create React App

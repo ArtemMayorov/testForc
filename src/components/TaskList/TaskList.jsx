@@ -1,8 +1,8 @@
-import React from 'react';
+import { React } from 'react';
 
 import Task from '../Task/Task';
 
-export default function TaskList({ taskList, setTaskList, filter }) {
+export default function TaskList({ taskList, setTaskList, updateTimer, filter }) {
   /* Меняем/Редактируем/Делаем задачу выполненной в поле Task */
   function editTask(elem, titleText = false, editState = false) {
     const idx = taskList.findIndex((element) => {
@@ -35,7 +35,17 @@ export default function TaskList({ taskList, setTaskList, filter }) {
   return (
     <ul className="todo-list">
       {filtertaskList.map((elem) => {
-        return <Task key={elem.id} elementTask={elem} editTask={editTask} deleteTask={deleteTask} />;
+        return (
+          <Task
+            taskList={taskList}
+            setTaskList={setTaskList}
+            key={elem.id}
+            elementTask={elem}
+            updateTimer={updateTimer}
+            editTask={editTask}
+            deleteTask={deleteTask}
+          />
+        );
       })}
     </ul>
   );
